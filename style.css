@@ -18,6 +18,20 @@ header{
     background-color: none;
     position: relative; /* Контейнер для позиционирования */
 }
+.container{
+    position: absolute; /* Абсолютное позиционирование */
+    width: 90%;
+    height: 55px;
+    
+    left: 5%; /* Отступ слева */
+    margin: 0; /* Убираем стандартные отступы */
+}
+
+.logo{
+    width: 55px;
+    height: 55px;
+    border-radius: 50px;
+}
 hr{
     position: absolute; /* Абсолютное позиционирование */
     bottom: 0; /* Прижимаем к низу */
