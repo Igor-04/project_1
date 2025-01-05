@@ -13,3 +13,18 @@
     </header>
 </body>
 </html>
+<script>
+    // Проверяем, доступен ли Telegram WebApp API
+    if (window.Telegram?.WebApp) {
+      // Инициализируем WebApp
+      window.Telegram.WebApp.ready();
+
+      // Обновляем тему при её изменении
+      window.Telegram.WebApp.onEvent("themeChanged", () => {
+        document.body.style.color = "var(--tg-theme-text-color)";
+        document.body.style.backgroundColor = "var(--tg-theme-bg-color)";
+      });
+    } else {
+      console.error("Telegram Web App API не доступен.");
+    }
+  </script>
