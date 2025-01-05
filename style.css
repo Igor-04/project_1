@@ -25,11 +25,14 @@ header{
     
     left: 5%; /* Отступ слева */
     margin: 0; /* Убираем стандартные отступы */
+    display: flex; /* Включаем Flexbox */
+    align-items: center; /* Центровка по вертикали */
+    justify-content: start; /* Элемент остаётся слева */
 }
 
 .logo{
-    width: 55px;
-    height: 55px;
+    width: 45px;
+    height: 45px;
     border-radius: 50px;
 }
 hr{
