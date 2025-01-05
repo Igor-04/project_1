@@ -23,7 +23,7 @@ hr{
     bottom: 0; /* Прижимаем к низу */
     left: 5%; /* Отступ слева */
     width: 90%;
-    border: 2px solid rgb(98, 98, 98); /* Граница для линии */
+    border: 2px solid var(--tg-theme-text-color); /* Граница для линии */
     border-radius: 10px;
     margin: 0; /* Убираем стандартные отступы */
 }
