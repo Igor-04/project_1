@@ -34,6 +34,7 @@ header{
     width: 45px;
     height: 45px;
     border-radius: 50px;
+    cursor: pointer;
 }
 .basket{
     position: absolute; /* Абсолютное позиционирование */
@@ -41,6 +42,7 @@ header{
     right: 2%; /* Отступ слева */
     background-color:#ffffff00;
     border: none;
+    cursor: pointer;
 }
 hr{
     position: absolute; /* Абсолютное позиционирование */
