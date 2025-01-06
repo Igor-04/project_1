@@ -33,7 +33,7 @@ header {
 .basket {
     position: absolute; 
     font-size: 23px;
-    right: 2%; 
+    right: 1%; 
     background-color: #ffffff00;
     border: none;
     cursor: pointer;
