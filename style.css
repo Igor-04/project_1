@@ -35,6 +35,13 @@ header{
     height: 45px;
     border-radius: 50px;
 }
+.basket{
+    position: absolute; /* Абсолютное позиционирование */
+   font-size: 23px;
+    right: 2%; /* Отступ слева */
+    background-color:#ffffff00;
+    border: none;
+}
 hr{
     position: absolute; /* Абсолютное позиционирование */
     bottom: 0; /* Прижимаем к низу */
