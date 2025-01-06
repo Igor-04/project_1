@@ -13,31 +13,14 @@ header {
     position: relative;
 }
 
-.container {
-    position: absolute; 
-    width: 90%;
-    height: 55px;
-    left: 5%;
-    display: flex; 
-    align-items: center; 
-    justify-content: start; 
-}
-
-.logo {
-    width: 45px;
-    height: 45px;
-    border-radius: 50px;
-    cursor: pointer;
-}
-
-.basket {
+/* .basket {
     position: absolute; 
     font-size: 23px;
     right: 1%; 
     background-color: #ffffff00;
     border: none;
     cursor: pointer;
-}
+} */
 
 hr {
     position: absolute;
