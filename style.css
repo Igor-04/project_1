@@ -106,6 +106,6 @@ h1 {
     bottom: -2px; /* Положение подчеркивания */
     width: 0;
     height: 2px; /* Толщина линии */
-    background-color: black; /* Цвет подчеркивания */
+    border: 2px solid var(--tg-theme-text-color);
     animation: underline 1s ease-out forwards; /* Анимация */
 }
