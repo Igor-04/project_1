@@ -126,7 +126,8 @@ h1 {
 .tovar {
     width: 45%;             /* Ширина каждого товара (две в ряд) */
     height: 250px;          /* Высота товара */
-    background-color: #3C3C3C;
+    /* background-color: #3C3C3C; */
+    background-color: #8B8989;
     border-radius: 5px;
 }
 .image{
