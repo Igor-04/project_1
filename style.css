@@ -67,3 +67,16 @@ h1 {
     font-size: 29px; /* Размер заголовка можно изменить по необходимости */
     margin: 0;
 }
+.cat{
+    width: 90%;
+    height: 35px;
+    margin-left: 5%;
+    display: flex;            /* Включаем Flexbox */
+    align-items: center;      /* Центрируем элементы по вертикали */
+    justify-content: space-between; /* Размещаем элементы горизонтально с равными промежутками */
+    background-color: aqua;
+}
+.cat_name{
+    font-size: 17px; /* Размер заголовка можно изменить по необходимости */
+    margin: 0;
+}
