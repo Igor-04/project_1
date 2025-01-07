@@ -74,7 +74,8 @@ h1 {
     display: flex;            /* Включаем Flexbox */
     align-items: center;      /* Центрируем элементы по вертикали */
     justify-content: space-between; /* Размещаем элементы горизонтально с равными промежутками */
-    
+    /* background-color: aqua; */
+    margin-top: 10px;
 }
 .cat_name{
     font-size: 17px; /* Размер заголовка можно изменить по необходимости */
