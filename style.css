@@ -107,5 +107,6 @@ h1 {
     width: 0;
     height: 2px; /* Толщина линии */
     background-color: var(--tg-theme-text-color); /* Цвет линии через CSS-переменную */
+    border-radius: 10px;
     animation: underline 1s ease-out forwards; /* Анимация */
 }
