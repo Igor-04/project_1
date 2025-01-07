@@ -111,17 +111,36 @@ h1 {
     animation: underline 1s ease-out forwards; /* Анимация */
 }
 
-.container{
+.container {
     width: 90%;
-    height: 100%;
-    background-color: aqua;
+    /* background-color: aqua; */
     margin-left: 5%;
-    display: flex;     
-    justify-content: space-between;
+    margin-top: 10px;
+
+    display: flex;          /* Включаем Flexbox */
+    flex-wrap: wrap;        /* Разрешаем перенос элементов */
+    justify-content: space-between; /* Равномерное распределение элементов */
+    gap: 10px;              /* Отступы между элементами */
 }
-.tovar{
-    width: 45%;
-    height: 220px;
-    background-color: blueviolet;
+
+.tovar {
+    width: 45%;             /* Ширина каждого товара (две в ряд) */
+    height: 250px;          /* Высота товара */
+    background-color: #3C3C3C;
     border-radius: 5px;
+}
+.image{
+    width: 100%;
+    height: 60.5%;
+    border-radius: 5px;
+}
+.price{
+    font-size: 20px;
+    padding-left: 5px;
+}
+.short_description{
+    font-size: 17px;
+    padding-left: 5px;
+    padding-top: 5px;
+    color: grey;
 }
