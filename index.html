@@ -14,12 +14,11 @@
         <hr>
     </header>
     
-    <div class="cat">
-      <h2 class="cat_name">Все</h2>
-      <h2 class="cat_name">Анонимность</h2>
-      <h2 class="cat_name">Вирусы</h2>
-      <h2 class="cat_name">Утилиты</h2>
-    </div>
+    <h2 class="cat_name"><u  id="animate-underline">Все</u></h2>
+        <h2 class="cat_name">Анонимность</h2>
+        <h2 class="cat_name">Вирусы</h2>
+        <h2 class="cat_name">Утилиты</h2>
+      </div>
     
 </body>
 </html>
@@ -38,3 +37,16 @@
       console.error("Telegram Web App API не доступен.");
     }
   </script>
+  <script>
+    // Перезапускаем анимацию при загрузке страницы
+window.addEventListener("load", function() {
+    const underlineElement = document.getElementById("animate-underline");
+
+    if (underlineElement) {
+        underlineElement.classList.remove("run-animation"); // Сбрасываем класс
+        // Принудительно перезапускаем анимацию с небольшой задержкой
+        setTimeout(() => underlineElement.classList.add("run-animation"), 10);
+    }
+});
+
+</script>
