@@ -127,7 +127,7 @@ h1 {
     width: 45%;             /* Ширина каждого товара (две в ряд) */
     height: 250px;          /* Высота товара */
     /* background-color: #3C3C3C; */
-    background-color: #8B8989;
+    background-color: #8B8989; /*цвет для белой темы*/
     border-radius: 5px;
 }
 .image{
@@ -143,5 +143,4 @@ h1 {
     font-size: 17px;
     padding-left: 5px;
     padding-top: 5px;
-    color: grey;
 }
