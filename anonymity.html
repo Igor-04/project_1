@@ -38,10 +38,5 @@
       });
     }
   });
-  window.addEventListener("popstate", () => {
-    if (window.history.state === null && window.Telegram?.WebApp) {
-      Telegram.WebApp.BackButton.hide(); // Скрываем кнопку "Назад", если вернулись на начальную страницу
-    }
-  }); 
 </script>
 </html>
