@@ -5,74 +5,59 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link rel="stylesheet" href="style.css">
     <script src="https://telegram.org/js/telegram-web-app.js?56"></script>
-    <title>Project_1</title>
+    <title>Анонимность</title>
 </head>
 <body>
     <header>
-        <h2 class="header-title" onclick="window.location='index.html'">Dark Whale</h2>  
-            <!-- <input type="button" class="basket" value="🛒" onclick="window.location='basket.html'" > -->
+        <h2 class="header-title" onclick="window.location='index.html'">Dark Whale</h2>
         <hr>
     </header>
     <div class="cat">
-    <h2 class="cat_name">Все</h2>
-        <h2 class="cat_name"><u  id="animate-underline">Анонимность</u></h2>
+        <h2 class="cat_name">Все</h2>
+        <h2 class="cat_name"><u id="animate-underline">Анонимность</u></h2>
         <h2 class="cat_name">Вирусы</h2>
         <h2 class="cat_name">Утилиты</h2>
-      </div>
+    </div>
+</body>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    if (window.Telegram?.WebApp) {
+      // Инициализируем WebApp
+      Telegram.WebApp.ready();
 
-    </body>
-    </html>
-    <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        // Проверяем, доступен ли Telegram WebApp API
-        if (window.Telegram?.WebApp) {
-          // Инициализируем WebApp
-          window.Telegram.WebApp.ready();
-    
-          // Функция для установки цветов
-          const setThemeColors = (themeParams) => {
-            // Устанавливаем системные цвета для body
-            document.body.style.color = "var(--tg-theme-text-color)";
-            document.body.style.backgroundColor = "var(--tg-theme-bg-color)";
-    
-            // Определяем свои цвета для элементов
-            const isDarkTheme = themeParams.bg_color === "#000000" || themeParams.bg_color.toLowerCase() === "#212121"; // Пример проверки
-            document.documentElement.style.setProperty(
-              "--custom-bg-color",
-              isDarkTheme ? "#3C3C3C" : "#8B8989"
-            );
-            document.documentElement.style.setProperty(
-              "--custom-text-color",
-              isDarkTheme ? "#FFFFFF" : "#000000"
-            );
-          };
-    
-          // Устанавливаем начальные цвета
-          setThemeColors(window.Telegram.WebApp.themeParams);
-    
-          // Обновляем тему при её изменении
-          window.Telegram.WebApp.onEvent("themeChanged", () => {
-            setThemeColors(window.Telegram.WebApp.themeParams);
-          });
-        } else {
-          console.error("Telegram Web App API не доступен.");
-        }
+      // Показываем кнопку "Назад"
+      Telegram.WebApp.BackButton.show();
+
+      // Обработчик нажатия кнопки "Назад"
+      Telegram.WebApp.BackButton.onClick(() => {
+        window.history.back(); // Возвращает на предыдущую страницу
       });
-    </script>
-    
-    
-      
-      <script>
-        // Перезапускаем анимацию при загрузке страницы
-    window.addEventListener("load", function() {
-        const underlineElement = document.getElementById("animate-underline");
-    
-        if (underlineElement) {
-            underlineElement.classList.remove("run-animation"); // Сбрасываем класс
-            // Принудительно перезапускаем анимацию с небольшой задержкой
-            setTimeout(() => underlineElement.classList.add("run-animation"), 10);
-        }
-    });
-    
-    </script>
-    
+
+      // Устанавливаем цвета темы
+      const setThemeColors = (themeParams) => {
+        document.body.style.color = "var(--tg-theme-text-color)";
+        document.body.style.backgroundColor = "var(--tg-theme-bg-color)";
+      };
+
+      // Устанавливаем начальные цвета
+      setThemeColors(Telegram.WebApp.themeParams);
+
+      // Обновляем тему при изменении
+      Telegram.WebApp.onEvent("themeChanged", () => {
+        setThemeColors(Telegram.WebApp.themeParams);
+      });
+    } else {
+      console.error("Telegram Web App API не доступен.");
+    }
+  });
+
+  // Перезапускаем анимацию при загрузке страницы
+  window.addEventListener("load", function () {
+    const underlineElement = document.getElementById("animate-underline");
+    if (underlineElement) {
+      underlineElement.classList.remove("run-animation");
+      setTimeout(() => underlineElement.classList.add("run-animation"), 10);
+    }
+  });
+</script>
+</html>
