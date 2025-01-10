@@ -20,23 +20,19 @@
     </div>
 </body>
 <script>
-  // Функция для перехода на другую страницу
-  function navigateTo(page) {
-    window.location.href = page; // Простое перенаправление
-  }
-
-  document.addEventListener("DOMContentLoaded", () => {
-    if (window.Telegram?.WebApp) {
-      Telegram.WebApp.ready();
-
-      // Показываем кнопку "Назад"
-      Telegram.WebApp.BackButton.show();
-
-      // Обработчик кнопки "Назад"
-      Telegram.WebApp.BackButton.onClick(() => {
-        navigateTo('./index.html'); // Всегда переходим на главную страницу
-      });
-    }
-  });
-</script>
+    document.addEventListener("DOMContentLoaded", () => {
+      if (window.Telegram?.WebApp) {
+        Telegram.WebApp.ready();
+  
+        // Показываем кнопку "Назад"
+        Telegram.WebApp.BackButton.show();
+  
+        // Обработчик кнопки "Назад"
+        Telegram.WebApp.BackButton.onClick(() => {
+          navigateTo('./index.html'); // Переход на главную страницу
+        });
+      }
+    });
+  </script>
+  
 </html>
