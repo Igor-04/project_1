@@ -60,17 +60,31 @@
     }
   });
 
-  // Функция для перехода и включения кнопки "Назад"
-  function navigateTo(page) {
-    // Показываем кнопку "Назад"
-    if (window.Telegram?.WebApp) {
-      Telegram.WebApp.BackButton.show();
-      Telegram.WebApp.BackButton.onClick(() => {
-        window.history.back(); // Возвращаемся на предыдущую страницу
-      });
-    }
-    // Добавляем шаг в историю и переходим на страницу
-    history.pushState({}, '', page);
-    window.location.href = page;
+// Функция для перехода и включения кнопки "Назад"
+function navigateTo(page) {
+  // Проверяем наличие Telegram API
+  if (window.Telegram?.WebApp) {
+    // Добавляем обработчик кнопки "Назад"
+    Telegram.WebApp.BackButton.show();
+    Telegram.WebApp.BackButton.onClick(() => {
+      window.history.back(); // Возвращаемся на предыдущую страницу
+    });
   }
+
+  // Добавляем текущую страницу в историю браузера
+  history.pushState({}, '', page);
+
+  // Переходим на новую страницу
+  window.location.href = page;
+}
+
+// Инициализация для работы кнопки "Назад" при загрузке страницы
+window.addEventListener('popstate', () => {
+  // Telegram Mini App не скрывает кнопку "Назад" автоматически
+  if (window.Telegram?.WebApp) {
+    if (history.state === null) {
+      Telegram.WebApp.BackButton.hide(); // Скрываем кнопку, если достигли начальной страницы
+    }
+  }
+});
 </script>
