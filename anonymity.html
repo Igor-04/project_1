@@ -20,44 +20,36 @@
     </div>
 </body>
 <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    if (window.Telegram?.WebApp) {
-      // Инициализируем WebApp
-      Telegram.WebApp.ready();
+document.addEventListener("DOMContentLoaded", () => {
+  if (window.Telegram?.WebApp) {
+    // Инициализируем WebApp
+    Telegram.WebApp.ready();
 
-      // Показываем кнопку "Назад"
-      Telegram.WebApp.BackButton.show();
+    // Показываем кнопку "Назад"
+    Telegram.WebApp.BackButton.show();
 
-      // Обработчик нажатия кнопки "Назад"
-      Telegram.WebApp.BackButton.onClick(() => {
-        window.history.back(); // Возвращает на предыдущую страницу
-      });
+    // Обработчик нажатия кнопки "Назад"
+    Telegram.WebApp.BackButton.onClick(() => {
+      history.back(); // Возвращаемся назад в истории
+    });
 
-      // Устанавливаем цвета темы
-      const setThemeColors = (themeParams) => {
-        document.body.style.color = "var(--tg-theme-text-color)";
-        document.body.style.backgroundColor = "var(--tg-theme-bg-color)";
-      };
+    // Устанавливаем цвета темы
+    const setThemeColors = (themeParams) => {
+      document.body.style.color = "var(--tg-theme-text-color)";
+      document.body.style.backgroundColor = "var(--tg-theme-bg-color)";
+    };
 
-      // Устанавливаем начальные цвета
+    // Устанавливаем начальные цвета
+    setThemeColors(Telegram.WebApp.themeParams);
+
+    // Обновляем тему при изменении
+    Telegram.WebApp.onEvent("themeChanged", () => {
       setThemeColors(Telegram.WebApp.themeParams);
+    });
+  } else {
+    console.error("Telegram Web App API не доступен.");
+  }
+});
 
-      // Обновляем тему при изменении
-      Telegram.WebApp.onEvent("themeChanged", () => {
-        setThemeColors(Telegram.WebApp.themeParams);
-      });
-    } else {
-      console.error("Telegram Web App API не доступен.");
-    }
-  });
-
-  // Перезапускаем анимацию при загрузке страницы
-  window.addEventListener("load", function () {
-    const underlineElement = document.getElementById("animate-underline");
-    if (underlineElement) {
-      underlineElement.classList.remove("run-animation");
-      setTimeout(() => underlineElement.classList.add("run-animation"), 10);
-    }
-  });
 </script>
 </html>
