@@ -84,9 +84,9 @@ function navigateTo(page) {
 window.addEventListener("popstate", () => {
   if (!history.state) {
     // Скрываем кнопку "Назад", если вернулись на главную страницу
-    if (window.Telegram?.WebApp) {
-      Telegram.WebApp.BackButton.hide();
-    }
+    // if (window.Telegram?.WebApp) {
+    //   Telegram.WebApp.BackButton.hide();
+    // }
   }
 });
 
