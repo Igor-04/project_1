@@ -9,7 +9,7 @@
 </head>
 <body>
     <header>
-        <h2 class="header-title" onclick="window.location='index.html'">Dark Whale</h2>
+        <h2 class="header-title" onclick="navigateTo('index.html')">Dark Whale</h2>
         <hr>
     </header>
     <div class="cat">
@@ -20,43 +20,40 @@
     </div>
 </body>
 <script>
+  // Функция для возврата на предыдущую страницу
+  function goBack() {
+    if (window.Telegram?.WebApp) {
+      Telegram.WebApp.BackButton.show();
+      Telegram.WebApp.BackButton.onClick(() => {
+        window.history.back();
+      });
+    }
+  }
+
   document.addEventListener("DOMContentLoaded", () => {
     if (window.Telegram?.WebApp) {
-      // Инициализируем WebApp
       Telegram.WebApp.ready();
-
-      // Показываем кнопку "Назад"
       Telegram.WebApp.BackButton.show();
-
-      // Обработчик нажатия кнопки "Назад"
       Telegram.WebApp.BackButton.onClick(() => {
-        window.history.back(); // Возвращает на предыдущую страницу
+        window.history.back();
       });
 
-      // Устанавливаем цвета темы
       const setThemeColors = (themeParams) => {
         document.body.style.color = "var(--tg-theme-text-color)";
         document.body.style.backgroundColor = "var(--tg-theme-bg-color)";
       };
 
-      // Устанавливаем начальные цвета
       setThemeColors(Telegram.WebApp.themeParams);
-
-      // Обновляем тему при изменении
       Telegram.WebApp.onEvent("themeChanged", () => {
         setThemeColors(Telegram.WebApp.themeParams);
       });
-    } else {
-      console.error("Telegram Web App API не доступен.");
     }
   });
 
-  // Перезапускаем анимацию при загрузке страницы
-  window.addEventListener("load", function () {
-    const underlineElement = document.getElementById("animate-underline");
-    if (underlineElement) {
-      underlineElement.classList.remove("run-animation");
-      setTimeout(() => underlineElement.classList.add("run-animation"), 10);
+  // Обработка событий возврата в браузере
+  window.addEventListener("popstate", () => {
+    if (window.history.state === null && window.Telegram?.WebApp) {
+      Telegram.WebApp.BackButton.hide();
     }
   });
 </script>

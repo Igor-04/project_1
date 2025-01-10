@@ -18,73 +18,43 @@
         <h2 class="cat_name">Вирусы</h2>
         <h2 class="cat_name">Утилиты</h2>
     </div>
-    <div class="container">
-        <div class="tovar">
-            <img src="./image/5c80a71345dc6f293c331bd88099e5ef.jpg" class="image">
-            <h1 class="price">Цена 0.5 TON</h1>
-            <h1 class="short_description">Как изменить вашу геолокацию?</h3>
-        </div>
-        <div class="tovar"></div>
-        <div class="tovar"></div>
-    </div>
 </body>
-</html>
 <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    // Проверяем, доступен ли Telegram WebApp API
+  // Функция для перехода на другую страницу
+  function navigateTo(page) {
     if (window.Telegram?.WebApp) {
-      // Инициализируем WebApp
-      window.Telegram.WebApp.ready();
+      Telegram.WebApp.BackButton.show(); // Показываем кнопку "Назад"
+      Telegram.WebApp.BackButton.onClick(() => {
+        window.history.back(); // Возвращаемся назад по истории
+      });
+    }
+    history.pushState({ page }, '', page); // Добавляем состояние в историю браузера
+    window.location.href = page; // Перенаправляем на новую страницу
+  }
 
-      // Функция для установки цветов
+  // Инициализация Telegram WebApp
+  document.addEventListener("DOMContentLoaded", () => {
+    if (window.Telegram?.WebApp) {
+      Telegram.WebApp.ready();
+
+      // Устанавливаем начальные цвета темы
       const setThemeColors = (themeParams) => {
         document.body.style.color = "var(--tg-theme-text-color)";
         document.body.style.backgroundColor = "var(--tg-theme-bg-color)";
-        const isDarkTheme = themeParams.bg_color === "#000000" || themeParams.bg_color.toLowerCase() === "#212121";
-        document.documentElement.style.setProperty(
-          "--custom-bg-color",
-          isDarkTheme ? "#3C3C3C" : "#8B8989"
-        );
-        document.documentElement.style.setProperty(
-          "--custom-text-color",
-          isDarkTheme ? "#FFFFFF" : "#000000"
-        );
       };
 
-      setThemeColors(window.Telegram.WebApp.themeParams);
-      window.Telegram.WebApp.onEvent("themeChanged", () => {
-        setThemeColors(window.Telegram.WebApp.themeParams);
+      setThemeColors(Telegram.WebApp.themeParams);
+      Telegram.WebApp.onEvent("themeChanged", () => {
+        setThemeColors(Telegram.WebApp.themeParams);
       });
-    } else {
-      console.error("Telegram Web App API не доступен.");
     }
   });
 
-// Функция для перехода и включения кнопки "Назад"
-function navigateTo(page) {
-  // Проверяем наличие Telegram API
-  if (window.Telegram?.WebApp) {
-    // Добавляем обработчик кнопки "Назад"
-    Telegram.WebApp.BackButton.show();
-    Telegram.WebApp.BackButton.onClick(() => {
-      window.history.back(); // Возвращаемся на предыдущую страницу
-    });
-  }
-
-  // Добавляем текущую страницу в историю браузера
-  history.pushState({}, '', page);
-
-  // Переходим на новую страницу
-  window.location.href = page;
-}
-
-// Инициализация для работы кнопки "Назад" при загрузке страницы
-window.addEventListener('popstate', () => {
-  // Telegram Mini App не скрывает кнопку "Назад" автоматически
-  if (window.Telegram?.WebApp) {
-    if (history.state === null) {
-      Telegram.WebApp.BackButton.hide(); // Скрываем кнопку, если достигли начальной страницы
+  // Обработка событий возврата в браузере
+  window.addEventListener("popstate", () => {
+    if (window.history.state === null && window.Telegram?.WebApp) {
+      Telegram.WebApp.BackButton.hide(); // Скрываем кнопку "Назад", если вернулись на начальную страницу
     }
-  }
-}); 
+  });
 </script>
+</html>
