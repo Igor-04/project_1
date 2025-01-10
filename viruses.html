@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link rel="stylesheet" href="style.css">
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script src="https://telegram.org/js/telegram-web-app.js?56"></script>
     <!-- <script src="app.js" defer></script> -->
     <title>Вирусы</title>
 </head>
@@ -20,8 +20,9 @@
         <h2 class="cat_name"data-page="utilities.html">Утилиты</h2>
     </div>
 </body>
-<!-- <script>
-document.addEventListener("DOMContentLoaded", () => {
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
   if (window.Telegram?.WebApp) {
     Telegram.WebApp.ready();
 
@@ -43,6 +44,28 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
+// Переход на другую страницу
+document.querySelectorAll(".cat_name").forEach((element) => {
+    element.addEventListener("click", (event) => {
+      const page = event.target.getAttribute("data-page");
+      if (page) navigateTo(page);
+    });
+  });
+
+
+// Функция для перехода на другую страницу
+function navigateTo(page) {
+  // Добавляем в историю браузера
+  history.pushState({ page }, "", page);
+
+  // Обновляем страницу
+  window.location.href = page;
+
+  // Показываем кнопку "Назад"
+  if (window.Telegram?.WebApp) {
+    Telegram.WebApp.BackButton.show();
+  }
+}
 
 // Обработка возврата на главную страницу
 window.addEventListener("popstate", () => {
@@ -52,5 +75,5 @@ window.addEventListener("popstate", () => {
 });
 
 
-</script> -->
+</script>
 </html>
