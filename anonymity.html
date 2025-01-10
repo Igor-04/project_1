@@ -29,9 +29,15 @@
 
       // Обработчик кнопки "Назад"
       Telegram.WebApp.BackButton.onClick(() => {
-        window.history.back(); // Возврат на предыдущую страницу
+        window.history.back(); // Возвращаемся на предыдущую страницу
       });
     }
   });
+
+  // Функция для перехода на другую страницу
+  function navigateTo(page) {
+    history.pushState({}, '', page); // Добавляем в историю
+    window.location.href = page; // Переходим на новую страницу
+  }
 </script>
 </html>

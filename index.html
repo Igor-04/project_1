@@ -33,7 +33,6 @@
     if (window.Telegram?.WebApp) {
       Telegram.WebApp.ready();
 
-      // Устанавливаем тему
       const setThemeColors = (themeParams) => {
         document.body.style.color = "var(--tg-theme-text-color)";
         document.body.style.backgroundColor = "var(--tg-theme-bg-color)";
@@ -43,27 +42,33 @@
       Telegram.WebApp.onEvent("themeChanged", () => {
         setThemeColors(Telegram.WebApp.themeParams);
       });
+
+      // Показываем кнопку "Назад", если не на главной странице
+      if (window.history.state) {
+        Telegram.WebApp.BackButton.show();
+      } else {
+        Telegram.WebApp.BackButton.hide();
+      }
+
+      // Настраиваем обработчик кнопки "Назад"
+      Telegram.WebApp.BackButton.onClick(() => {
+        window.history.back();
+      });
     }
   });
 
-  // Функция для перехода на другую страницу с добавлением в историю
+  // Функция для перехода на другую страницу
   function navigateTo(page) {
-    if (window.Telegram?.WebApp) {
-      Telegram.WebApp.BackButton.show(); // Показываем кнопку "Назад"
-      Telegram.WebApp.BackButton.onClick(() => {
-        window.history.back(); // Возвращаемся на предыдущую страницу по истории
-      });
-    }
-
-    // Добавляем текущую страницу в историю браузера
-    history.pushState({}, '', page); 
-    window.location.href = page; // Перенаправляем на страницу
+    history.pushState({}, '', page); // Добавляем в историю
+    window.location.href = page; // Переходим на новую страницу
   }
 
-  // Слушаем события возврата по истории
+  // Обработчик возврата по истории
   window.addEventListener("popstate", () => {
-    if (window.Telegram?.WebApp && window.history.state === null) {
+    if (window.history.state === null && window.Telegram?.WebApp) {
       Telegram.WebApp.BackButton.hide(); // Скрываем кнопку "Назад" на главной странице
+    } else {
+      Telegram.WebApp.BackButton.show(); // Показываем кнопку на других страницах
     }
   });
 </script>
