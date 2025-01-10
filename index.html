@@ -9,31 +9,24 @@
 </head>
 <body>
     <header>
-        <h2 class="header-title" onclick="window.location='index.html'">Dark Whale</h2>  
-            <!-- <input type="button" class="basket" value="🛒" onclick="window.location='basket.html'" > -->
+        <h2 class="header-title" onclick="navigateTo('index.html')">Dark Whale</h2>
         <hr>
     </header>
     <div class="cat">
-    <h2 class="cat_name"><u  id="animate-underline">Все</u></h2>
-    <a class="cat_name" href="anonymity.html">Анонимность</a>
+        <h2 class="cat_name"><u id="animate-underline">Все</u></h2>
+        <h2 class="cat_name" onclick="navigateTo('anonymity.html')">Анонимность</h2>
         <h2 class="cat_name">Вирусы</h2>
         <h2 class="cat_name">Утилиты</h2>
-      </div>
-    
-      <div class="container">
-          <div class="tovar">
+    </div>
+    <div class="container">
+        <div class="tovar">
             <img src="./image/5c80a71345dc6f293c331bd88099e5ef.jpg" class="image">
             <h1 class="price">Цена 0.5 TON</h1>
             <h1 class="short_description">Как изменить вашу геолокацию?</h3>
-          </div>
-
-          <div class="tovar">
-          </div>
-
-          <div class="tovar">
-          </div>
-
-      </div>
+        </div>
+        <div class="tovar"></div>
+        <div class="tovar"></div>
+    </div>
 </body>
 </html>
 <script>
@@ -45,12 +38,9 @@
 
       // Функция для установки цветов
       const setThemeColors = (themeParams) => {
-        // Устанавливаем системные цвета для body
         document.body.style.color = "var(--tg-theme-text-color)";
         document.body.style.backgroundColor = "var(--tg-theme-bg-color)";
-
-        // Определяем свои цвета для элементов
-        const isDarkTheme = themeParams.bg_color === "#000000" || themeParams.bg_color.toLowerCase() === "#212121"; // Пример проверки
+        const isDarkTheme = themeParams.bg_color === "#000000" || themeParams.bg_color.toLowerCase() === "#212121";
         document.documentElement.style.setProperty(
           "--custom-bg-color",
           isDarkTheme ? "#3C3C3C" : "#8B8989"
@@ -61,10 +51,7 @@
         );
       };
 
-      // Устанавливаем начальные цвета
       setThemeColors(window.Telegram.WebApp.themeParams);
-
-      // Обновляем тему при её изменении
       window.Telegram.WebApp.onEvent("themeChanged", () => {
         setThemeColors(window.Telegram.WebApp.themeParams);
       });
@@ -72,20 +59,18 @@
       console.error("Telegram Web App API не доступен.");
     }
   });
-</script>
 
-
-  
-  <script>
-    // Перезапускаем анимацию при загрузке страницы
-window.addEventListener("load", function() {
-    const underlineElement = document.getElementById("animate-underline");
-
-    if (underlineElement) {
-        underlineElement.classList.remove("run-animation"); // Сбрасываем класс
-        // Принудительно перезапускаем анимацию с небольшой задержкой
-        setTimeout(() => underlineElement.classList.add("run-animation"), 10);
+  // Функция для перехода и включения кнопки "Назад"
+  function navigateTo(page) {
+    // Показываем кнопку "Назад"
+    if (window.Telegram?.WebApp) {
+      Telegram.WebApp.BackButton.show();
+      Telegram.WebApp.BackButton.onClick(() => {
+        window.history.back(); // Возвращаемся на предыдущую страницу
+      });
     }
-});
-
+    // Добавляем шаг в историю и переходим на страницу
+    history.pushState({}, '', page);
+    window.location.href = page;
+  }
 </script>
