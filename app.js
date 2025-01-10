@@ -1,69 +1,68 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const isTelegramAvailable = window.Telegram?.WebApp;
-    const webApp = isTelegramAvailable ? window.Telegram.WebApp : null;
-  
-    if (isTelegramAvailable) {
-      // Инициализируем WebApp
-      webApp.ready();
-  
-      // Устанавливаем начальные цвета темы
-      const setThemeColors = (themeParams) => {
-        document.body.style.color = "var(--tg-theme-text-color)";
-        document.body.style.backgroundColor = "var(--tg-theme-bg-color)";
-      };
-      setThemeColors(webApp.themeParams);
-  
-      // Обновляем тему при изменении
-      webApp.onEvent("themeChanged", () => {
-        setThemeColors(webApp.themeParams);
-      });
-  
-      // Настраиваем кнопку "Назад"
-      updateBackButtonState();
-  
-      // Добавляем обработчик на события возврата
-      window.addEventListener("popstate", () => {
-        updateBackButtonState();
-      });
-    } else {
-      console.error("Telegram Web App API не доступен.");
+
+  document.addEventListener("DOMContentLoaded", () => {
+  if (window.Telegram?.WebApp) {
+    Telegram.WebApp.ready();
+    Telegram.WebApp.BackButton.hide(); // Кнопка скрыта на главной странице
+  }
+
+  const content = document.getElementById("content");
+
+  // Страницы и их содержимое
+  const pages = {
+    index: "<h1>Добро пожаловать на главную страницу!</h1>",
+    anonymity: "<h1>Анонимность: содержание страницы</h1>",
+    viruses: "<h1>Вирусы: содержание страницы</h1>",
+    utilities: "<h1>Утилиты: содержание страницы</h1>",
+  };
+
+  // Функция для загрузки содержимого страницы
+  function loadPage(page) {
+    content.innerHTML = pages[page] || "<h1>Страница не найдена</h1>";
+
+    if (window.Telegram?.WebApp) {
+      if (page === "index") {
+        Telegram.WebApp.BackButton.hide(); // Скрыть кнопку "Назад" на главной
+      } else {
+        Telegram.WebApp.BackButton.show(); // Показать кнопку "Назад" на других
+      }
     }
-  
-    // Обработчик клика на ссылки
-    document.querySelectorAll(".cat_name").forEach((element) => {
-      element.addEventListener("click", (event) => {
-        const page = event.target.getAttribute("data-page");
-        if (page) {
-          navigateTo(page);
-        }
-      });
+  }
+
+  // Переход на другую страницу
+  function navigateTo(page) {
+    if (!pages[page]) return;
+
+    // Обновляем содержимое
+    loadPage(page);
+
+    // Добавляем состояние в историю
+    history.pushState({ page }, "", `#${page}`);
+  }
+
+  // Обработка кнопки "Назад"
+  if (window.Telegram?.WebApp) {
+    Telegram.WebApp.BackButton.onClick(() => {
+      history.back();
+    });
+  }
+
+  // Обработка события "popstate"
+  window.addEventListener("popstate", (event) => {
+    const page = event.state?.page || "index";
+    loadPage(page);
+  });
+
+  // Обработка кликов по меню
+  document.querySelectorAll(".cat_name").forEach((element) => {
+    element.addEventListener("click", (event) => {
+      const page = event.target.getAttribute("data-page");
+      navigateTo(page);
     });
   });
-  
-  // Функция для перехода на другую страницу
-  function navigateTo(page) {
-    history.pushState({ page }, "", page);
-    window.location.href = page;
-  }
-  
-  // Обновление состояния кнопки "Назад"
-  function updateBackButtonState() {
-    const webApp = window.Telegram.WebApp;
-    const currentPath = window.location.pathname.split("/").pop();
-  
-    if (currentPath === "index.html" || currentPath === "") {
-      webApp.BackButton.hide(); // Главная страница: скрываем кнопку "Назад"
-      webApp.MainButton.show(); // Показываем кнопку "Закрыть"
-      webApp.MainButton.text = "Закрыть";
-      webApp.MainButton.onClick(() => {
-        webApp.close(); // Закрыть мини-приложение
-      });
-    } else {
-      webApp.BackButton.show(); // Другие страницы: показываем кнопку "Назад"
-      webApp.MainButton.hide(); // Скрываем кнопку "Закрыть"
-      webApp.BackButton.onClick(() => {
-        window.history.back(); // Возврат на предыдущую страницу
-      });
-    }
-  }
-  
+
+  // Загрузка главной страницы по умолчанию
+  const initialPage = location.hash.replace("#", "") || "index";
+  loadPage(initialPage);
+  history.replaceState({ page: initialPage }, "", `#${initialPage}`);
+});
+
