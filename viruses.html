@@ -116,9 +116,9 @@ const setThemeColors = (themeParams) => {
                 // Отображаем кнопку "Назад"
                 tg.BackButton.show();
 
-                // Обработчик кнопки "Назад" из Telegram
+                // Устанавливаем поведение кнопки "Назад"
                 tg.BackButton.onClick(() => {
-                    closeModalWindow();
+                    navigateToViruses();
                 });
             });
         });
@@ -134,6 +134,13 @@ const setThemeColors = (themeParams) => {
 
             // Скрываем кнопку "Назад"
             tg.BackButton.hide();
+        }
+
+        // Функция для перехода на страницу "Вирусы"
+        function navigateToViruses() {
+            modal.style.display = "none"; // Закрываем модальное окно
+           
+            window.location.href = "viruses.html"; // Переход на страницу "Вирусы"
         }
     }
 });
