@@ -207,3 +207,19 @@ h1 {
 .long_description {
     font-size: 18px;
 }
+telegram-button {
+    background-color: #0088cc; /* Цвет Telegram */
+    color: #ffffff;
+    border: none;
+    padding: 15px;
+    width: 100%;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.telegram-button:hover {
+    background-color: #006c99; /* Тёмный цвет при наведении */
+}
