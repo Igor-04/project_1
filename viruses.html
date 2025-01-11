@@ -20,7 +20,7 @@
         <h2 class="cat_name"data-page="utilities.html">Утилиты</h2>
     </div>
     <div class="container">
-        <div class="tovar">
+        <div class="tovar" onclick="openModal('Как изменить вашу геолокацию?', 'Цена 0.1 TON', './image/5c80a71345dc6f293c331bd88099e5ef.jpg')">
             <img src="./image/5c80a71345dc6f293c331bd88099e5ef.jpg" class="image">
             <h1 class="price">Цена 0.1 TON</h1>
             <h1 class="short_description">Как изменить вашу геолокацию?</h3>
@@ -28,6 +28,15 @@
         <div class="tovar"></div>
         <div class="tovar"></div>
     </div>
+    <!-- Модальное окно -->
+<div id="modal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <img id="modal-image" src="" alt="Товар" class="modal-image">
+        <h1 id="modal-title" class="modal-title"></h1>
+        <p id="modal-description" class="modal-description"></p>
+    </div>
+</div>
 </body>
 
 <script>
@@ -87,3 +96,46 @@ const setThemeColors = (themeParams) => {
     
     
 </html>
+
+<script>
+   document.addEventListener("DOMContentLoaded", () => {
+    const modal = document.getElementById("myModal");
+    const closeModal = document.querySelector(".close");
+    const tg = window.Telegram.WebApp;
+
+    // Проверяем, доступно ли API Telegram
+    if (tg) {
+        tg.ready();
+
+        // Обработчик для открытия модального окна
+        document.querySelectorAll(".tovar").forEach((tovar) => {
+            tovar.addEventListener("click", () => {
+                // Показываем модальное окно
+                modal.style.display = "block";
+
+                // Отображаем кнопку "Назад"
+                tg.BackButton.show();
+
+                // Обработчик кнопки "Назад" из Telegram
+                tg.BackButton.onClick(() => {
+                    closeModalWindow();
+                });
+            });
+        });
+
+        // Закрытие окна кнопкой "×"
+        closeModal.addEventListener("click", () => {
+            closeModalWindow();
+        });
+
+        // Закрытие модального окна
+        function closeModalWindow() {
+            modal.style.display = "none";
+
+            // Скрываем кнопку "Назад"
+            tg.BackButton.hide();
+        }
+    }
+});
+
+</script>
