@@ -19,7 +19,15 @@
         <h2 class="cat_name" data-page="viruses.html"><u id="animate-underline">Вирусы</u></h2>
         <h2 class="cat_name"data-page="utilities.html">Утилиты</h2>
     </div>
-    <h2>GHBGGG</h2>
+    <div class="container">
+        <div class="tovar">
+            <img src="./image/5c80a71345dc6f293c331bd88099e5ef.jpg" class="image">
+            <h1 class="price">Цена 0.1 TON</h1>
+            <h1 class="short_description">Как изменить вашу геолокацию?</h3>
+        </div>
+        <div class="tovar"></div>
+        <div class="tovar"></div>
+    </div>
 </body>
 
 <script>
@@ -35,16 +43,30 @@
           window.history.back(); // Возврат на предыдущую страницу
         });
     
-        // Установка темы
-        const setThemeColors = (themeParams) => {
-          document.body.style.color = "var(--tg-theme-text-color)";
-          document.body.style.backgroundColor = "var(--tg-theme-bg-color)";
-        };
-        setThemeColors(Telegram.WebApp.themeParams);
-        Telegram.WebApp.onEvent("themeChanged", () => {
-          setThemeColors(Telegram.WebApp.themeParams);
-        });
-      }
+        // Функция для установки цветов
+const setThemeColors = (themeParams) => {
+   document.body.style.color = "var(--tg-theme-text-color)";
+   document.body.style.backgroundColor = "var(--tg-theme-bg-color)";
+   const isDarkTheme = themeParams.bg_color === "#000000" || themeParams.bg_color.toLowerCase() === "#212121";
+   document.documentElement.style.setProperty(
+     "--custom-bg-color",
+     isDarkTheme ? "#3C3C3C" : "#8B8989"
+   );
+   document.documentElement.style.setProperty(
+     "--custom-text-color",
+     isDarkTheme ? "#FFFFFF" : "#000000"
+   );
+ };
+
+ setThemeColors(window.Telegram.WebApp.themeParams);
+ window.Telegram.WebApp.onEvent("themeChanged", () => {
+   setThemeColors(window.Telegram.WebApp.themeParams);
+ });
+} else {
+ console.error("Telegram Web App API не доступен.");
+}
+});
+      
     
       // Переход на другую страницу
       document.querySelectorAll(".cat_name").forEach((element) => {
@@ -55,7 +77,7 @@
           }
         });
       });
-    });
+    
     
     // Функция для перехода на другую страницу
     function navigateTo(page) {
