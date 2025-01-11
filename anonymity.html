@@ -26,7 +26,7 @@
       if (window.Telegram?.WebApp) {
         Telegram.WebApp.ready();
     
-        // Показываем кнопку "Назад"
+        // Показываем кнопку "Назад" на второстепенных страницах
         Telegram.WebApp.BackButton.show();
     
         // Обработка нажатия кнопки "Назад"
@@ -49,7 +49,9 @@
       document.querySelectorAll(".cat_name").forEach((element) => {
         element.addEventListener("click", (event) => {
           const page = event.target.getAttribute("data-page");
-          if (page) navigateTo(page);
+          if (page) {
+            navigateTo(page);
+          }
         });
       });
     });

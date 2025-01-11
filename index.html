@@ -49,13 +49,24 @@
       Telegram.WebApp.onEvent("themeChanged", () => {
         setThemeColors(Telegram.WebApp.themeParams);
       });
+  
+      // Обновление кнопки "Назад" при загрузке главной страницы
+      const updateBackButton = () => {
+        const isMainPage = location.pathname.includes("index.html") || location.pathname === "/";
+        if (isMainPage) {
+          Telegram.WebApp.BackButton.hide(); // Скрываем кнопку "Назад"
+        }
+      };
+      updateBackButton();
     }
   
     // Переход на другую страницу
     document.querySelectorAll(".cat_name").forEach((element) => {
       element.addEventListener("click", (event) => {
         const page = event.target.getAttribute("data-page");
-        if (page) navigateTo(page);
+        if (page) {
+          navigateTo(page);
+        }
       });
     });
   });
@@ -65,6 +76,7 @@
     window.location.href = page; // Переход на другую страницу
   }
   </script>
+  
   
 </html>
 <!-- // Функция для установки цветов
