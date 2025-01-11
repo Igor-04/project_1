@@ -22,64 +22,55 @@
 </body>
 <script>
     document.addEventListener("DOMContentLoaded", () => {
-      if (window.Telegram?.WebApp) {
-        Telegram.WebApp.ready();
-  
-        // Показываем кнопку "Назад"
-        Telegram.WebApp.BackButton.show();
-  
-        // Обработка нажатия кнопки "Назад"
-        Telegram.WebApp.BackButton.onClick(() => {
-          window.history.back(); // Возврат на предыдущую страницу
-        });
-  
-        // Установка темы
-        const setThemeColors = (themeParams) => {
-          document.body.style.color = "var(--tg-theme-text-color)";
-          document.body.style.backgroundColor = "var(--tg-theme-bg-color)";
-        };
-        setThemeColors(Telegram.WebApp.themeParams);
-  
-        Telegram.WebApp.onEvent("themeChanged", () => {
-          setThemeColors(Telegram.WebApp.themeParams);
-        });
-      }
-  
-      // Обработчик кликов для перехода по категориям
-      document.querySelectorAll(".cat_name").forEach((element) => {
-        element.addEventListener("click", (event) => {
-          const page = event.target.getAttribute("data-page");
-          if (page) navigateTo(page);
-        });
-      });
+  if (window.Telegram?.WebApp) {
+    Telegram.WebApp.ready();
+
+    // Показываем кнопку "Назад"
+    Telegram.WebApp.BackButton.show();
+
+    // Обработка нажатия кнопки "Назад"
+    Telegram.WebApp.BackButton.onClick(() => {
+      window.history.back(); // Возврат на предыдущую страницу
     });
-  
-    // Функция для перехода на другую страницу
-    function navigateTo(page) {
-      // Обновляем историю и содержимое страницы
-      history.pushState({ page }, "", page);
-      loadPage(page);
-    }
-  
-    // Функция для загрузки страницы без перезагрузки
-    function loadPage(page) {
-      fetch(page)
-        .then((response) => response.text())
-        .then((html) => {
-          document.body.innerHTML = html; // Заменяем содержимое страницы
-        });
-    }
-  
-    // Обработка события "popstate"
-    window.addEventListener("popstate", (event) => {
-      const state = event.state;
-      if (state && state.page) {
-        loadPage(state.page); // Загружаем предыдущую страницу из истории
-      } else {
-        // Если вернулись на главную
-        window.location.href = "./index.html";
-      }
+
+    // Установка темы
+    const setThemeColors = (themeParams) => {
+      document.body.style.color = "var(--tg-theme-text-color)";
+      document.body.style.backgroundColor = "var(--tg-theme-bg-color)";
+    };
+    setThemeColors(Telegram.WebApp.themeParams);
+
+    Telegram.WebApp.onEvent("themeChanged", () => {
+      setThemeColors(Telegram.WebApp.themeParams);
     });
-  </script>
-  
+  }
+
+  // Переход на другую страницу
+  document.querySelectorAll(".cat_name").forEach((element) => {
+    element.addEventListener("click", (event) => {
+      const page = event.target.getAttribute("data-page");
+      if (page) navigateTo(page);
+    });
+  });
+});
+
+// Функция для перехода на другую страницу
+function navigateTo(page) {
+  // Добавляем в историю браузера
+  history.pushState({ page }, "", page);
+
+  // Обновляем страницу
+  window.location.href = page;
+}
+
+// Обработка события "popstate"
+window.addEventListener("popstate", (event) => {
+  const { state } = event;
+  if (!state || !state.page) {
+    // Если вернулись на главную страницу
+    window.location.href = "./index.html";
+  }
+});
+
+</script>
 </html>
