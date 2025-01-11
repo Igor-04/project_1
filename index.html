@@ -32,49 +32,56 @@
 </body>
 
 
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    if (window.Telegram?.WebApp) {
-      Telegram.WebApp.ready();
-  
-      // Скрываем кнопку "Назад" на главной странице
-      Telegram.WebApp.BackButton.hide();
-  
-      // Установка темы
-      const setThemeColors = (themeParams) => {
-        document.body.style.color = "var(--tg-theme-text-color)";
-        document.body.style.backgroundColor = "var(--tg-theme-bg-color)";
-      };
+
+  <script>
+document.addEventListener("DOMContentLoaded", () => {
+  if (window.Telegram?.WebApp) {
+    Telegram.WebApp.ready();
+
+    // Установка темы
+    const setThemeColors = (themeParams) => {
+      document.body.style.color = "var(--tg-theme-text-color)";
+      document.body.style.backgroundColor = "var(--tg-theme-bg-color)";
+    };
+    setThemeColors(Telegram.WebApp.themeParams);
+
+    Telegram.WebApp.onEvent("themeChanged", () => {
       setThemeColors(Telegram.WebApp.themeParams);
-      Telegram.WebApp.onEvent("themeChanged", () => {
-        setThemeColors(Telegram.WebApp.themeParams);
-      });
-  
-      // Обновление кнопки "Назад" при загрузке главной страницы
-      const updateBackButton = () => {
-        const isMainPage = location.pathname.includes("index.html") || location.pathname === "/";
-        if (isMainPage) {
-          Telegram.WebApp.BackButton.hide(); // Скрываем кнопку "Назад"
-        }
-      };
-      updateBackButton();
-    }
-  
-    // Переход на другую страницу
-    document.querySelectorAll(".cat_name").forEach((element) => {
-      element.addEventListener("click", (event) => {
-        const page = event.target.getAttribute("data-page");
-        if (page) {
-          navigateTo(page);
-        }
-      });
+    });
+
+    // Обновление кнопки "Назад"
+    const updateBackButton = () => {
+      const isMainPage = location.pathname.includes("index.html") || location.pathname === "/";
+      if (isMainPage) {
+        Telegram.WebApp.BackButton.hide(); // Скрываем кнопку "Назад"
+      } else {
+        Telegram.WebApp.BackButton.show(); // Показываем кнопку на других страницах
+      }
+    };
+
+    updateBackButton(); // Проверяем при загрузке
+
+    // Обновляем состояние кнопки "Назад" при изменении истории
+    window.addEventListener("popstate", updateBackButton);
+  }
+
+  // Переход на другую страницу
+  document.querySelectorAll(".cat_name").forEach((element) => {
+    element.addEventListener("click", (event) => {
+      const page = event.target.getAttribute("data-page");
+      if (page) {
+        navigateTo(page);
+      }
     });
   });
-  
-  // Функция для перехода на другую страницу
-  function navigateTo(page) {
-    window.location.href = page; // Переход на другую страницу
-  }
+});
+
+// Функция для перехода на другую страницу
+function navigateTo(page) {
+  history.pushState({}, "", page); // Добавляем страницу в историю
+  window.location.href = page; // Переход на другую страницу
+}
+
   </script>
   
   
