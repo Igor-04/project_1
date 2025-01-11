@@ -35,7 +35,6 @@
         <img id="modal-image" src="./image/5c80a71345dc6f293c331bd88099e5ef.jpg" alt="Товар" class="modal-image">
         <p id="long_description" class="long_description">Софт позволяет подменивать ваше местоположение, ещё он уникальный тем что он может создавать симуляции движения</p>
         <h2 class="price_modal" id="price">0.1 TON</h2>
-        <button id="buyButton" class="telegram-button">Купить</button>
     </div>
 </div>
 </body>
@@ -142,6 +141,46 @@ const setThemeColors = (themeParams) => {
            
             window.location.href = "viruses.html"; // Переход на страницу "Вирусы"
         }
+    }
+});
+
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+    const modal = document.getElementById("myModal");
+    const tg = window.Telegram.WebApp;
+
+    // Проверка доступности API Telegram
+    if (tg) {
+        tg.ready();
+
+        // Создаем кнопку Telegram
+        tg.MainButton.setParams({
+            text: "Купить" // Текст кнопки
+        });
+
+        // Показать кнопку, когда модальное окно открыто
+        document.querySelectorAll(".tovar").forEach((tovar) => {
+            tovar.addEventListener("click", () => {
+                modal.style.display = "block"; // Показываем модальное окно
+                tg.MainButton.show(); // Показываем кнопку "Купить"
+                
+                tg.MainButton.onClick(() => {
+                    // Действие при нажатии кнопки
+                    tg.sendMessage("Вы хотите купить товар: " + document.getElementById("name_soft").textContent);
+                    // Или перенаправление на страницу покупки
+                    // window.location.href = "buyPage.html";
+                });
+            });
+        });
+
+        // Закрытие модального окна при нажатии на кнопку "Назад"
+        tg.BackButton.show();
+        tg.BackButton.onClick(() => {
+            modal.style.display = "none";
+            tg.MainButton.hide(); // Прячем кнопку после закрытия модального окна
+        });
     }
 });
 
