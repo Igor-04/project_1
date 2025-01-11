@@ -75,6 +75,11 @@
   function navigateTo(page) {
     window.location.href = page; // Переход на другую страницу
   }
+  if (window.history.state === null && window.Telegram?.WebApp) {
+      Telegram.WebApp.BackButton.hide(); // Скрываем кнопку "Назад" на главной странице
+    } else {
+      Telegram.WebApp.BackButton.show(); // Показываем кнопку на других страницах
+    }
   </script>
   
   
