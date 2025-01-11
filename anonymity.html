@@ -40,6 +40,7 @@
           document.body.style.backgroundColor = "var(--tg-theme-bg-color)";
         };
         setThemeColors(Telegram.WebApp.themeParams);
+    
         Telegram.WebApp.onEvent("themeChanged", () => {
           setThemeColors(Telegram.WebApp.themeParams);
         });
@@ -58,8 +59,16 @@
     
     // Функция для перехода на другую страницу
     function navigateTo(page) {
+      history.pushState({}, "", page); // Обновляем историю
       window.location.href = page; // Переход на другую страницу
     }
-    </script>
     
+    // Обработка события "popstate" (для работы кнопки "Назад" в браузере)
+    window.addEventListener("popstate", () => {
+      const isMainPage = location.pathname.includes("index.html") || location.pathname === "/";
+      if (window.Telegram?.WebApp && isMainPage) {
+        Telegram.WebApp.BackButton.hide(); // Убираем кнопку "Назад" при возврате на главную
+      }
+    });
+    </script>    
 </html>
