@@ -81,29 +81,7 @@
 
 </script>
   
-  <script>
-    const modal = document.getElementById("myModal");
-const closeModalButton = document.getElementById("closeModal");
 
-// Открытие модального окна
-function openModal() {
-    modal.style.display = "block";
-    document.body.classList.add("modal-open");
-}
-
-// Закрытие модального окна
-function closeModal() {
-    modal.style.display = "none";
-    document.body.classList.remove("modal-open");
-}
-
-document.querySelectorAll(".tovar").forEach((tovar) => {
-    tovar.addEventListener("click", openModal);
-});
-
-closeModalButton.addEventListener("click", closeModal);
-
-  </script>
 </html>
 <!-- // Функция для установки цветов
 const setThemeColors = (themeParams) => {
