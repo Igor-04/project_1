@@ -31,72 +31,79 @@
 </body>
 
 
+ 
  <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    if (window.Telegram?.WebApp) {
-      Telegram.WebApp.ready();
-  
-      // Скрываем кнопку "Назад" на главной странице
-      Telegram.WebApp.BackButton.hide();
-  
-      // Установка темы
-      // Функция для установки цветов
-const setThemeColors = (themeParams) => {
-   document.body.style.color = "var(--tg-theme-text-color)";
-   document.body.style.backgroundColor = "var(--tg-theme-bg-color)";
-   const isDarkTheme = themeParams.bg_color === "#000000" || themeParams.bg_color.toLowerCase() === "#212121";
-   document.documentElement.style.setProperty(
-     "--custom-bg-color",
-     isDarkTheme ? "#3C3C3C" : "#8B8989"
-   );
-   document.documentElement.style.setProperty(
-     "--custom-text-color",
-     isDarkTheme ? "#FFFFFF" : "#000000"
-   );
- };
+   document.addEventListener("DOMContentLoaded", () => {
+    const modal = document.getElementById("myModal");
+    const closeModal = document.querySelector(".close");
+    const tg = window.Telegram.WebApp;
 
- setThemeColors(window.Telegram.WebApp.themeParams);
- window.Telegram.WebApp.onEvent("themeChanged", () => {
-   setThemeColors(window.Telegram.WebApp.themeParams);
- });
-} else {
- console.error("Telegram Web App API не доступен.");
-}
-});
-  
-      // Обновление кнопки "Назад" при загрузке главной страницы
-      const updateBackButton = () => {
-        const isMainPage = location.pathname.includes("index.html") || location.pathname === "/";
-        if (isMainPage) {
-          Telegram.WebApp.BackButton.hide(); // Скрываем кнопку "Назад"
+    // Проверяем, доступно ли API Telegram
+    if (tg) {
+        tg.ready();
+
+        // Обработчик для открытия модального окна
+        document.querySelectorAll(".tovar").forEach((tovar) => {
+            tovar.addEventListener("click", () => {
+                // Показываем модальное окно
+                modal.style.display = "block";
+
+                // Отображаем кнопку "Назад"
+                tg.BackButton.show();
+
+                // Устанавливаем поведение кнопки "Назад"
+                tg.BackButton.onClick(() => {
+                    navigateToViruses();
+                });
+            });
+        });
+
+        // Закрытие окна кнопкой "×"
+        closeModal.addEventListener("click", () => {
+            closeModalWindow();
+        });
+
+        // Закрытие модального окна
+        function closeModalWindow() {
+            modal.style.display = "none";
+
+            
         }
-      };
-      updateBackButton();
-    
-  
-    // Переход на другую страницу
-    document.querySelectorAll(".cat_name").forEach((element) => {
-      element.addEventListener("click", (event) => {
-        const page = event.target.getAttribute("data-page");
-        if (page) {
-          navigateTo(page);
+
+        // Функция для перехода на страницу "Вирусы"
+        function navigateToViruses() {
+            modal.style.display = "none"; // Закрываем модальное окно
+           
+            window.location.href = "viruses.html"; // Переход на страницу "Вирусы"
         }
-      });
-    });
-  
-  
-  // Функция для перехода на другую страницу
-  function navigateTo(page) {
-    window.location.href = page; // Переход на другую страницу
-  }
-  if (window.history.state === null && window.Telegram?.WebApp) {
-      Telegram.WebApp.BackButton.hide(); // Скрываем кнопку "Назад" на главной странице
-    } else {
-      Telegram.WebApp.BackButton.show(); // Показываем кнопку на других страницах
     }
+});
+
+</script>
+  
+  <script>
+    const modal = document.getElementById("myModal");
+const closeModalButton = document.getElementById("closeModal");
+
+// Открытие модального окна
+function openModal() {
+    modal.style.display = "block";
+    document.body.classList.add("modal-open");
+}
+
+// Закрытие модального окна
+function closeModal() {
+    modal.style.display = "none";
+    document.body.classList.remove("modal-open");
+}
+
+document.querySelectorAll(".tovar").forEach((tovar) => {
+    tovar.addEventListener("click", openModal);
+});
+
+closeModalButton.addEventListener("click", closeModal);
+
   </script>
-  
-  
 </html>
 <!-- // Функция для установки цветов
 const setThemeColors = (themeParams) => {

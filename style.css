@@ -180,10 +180,22 @@ h1 {
     border-radius: 5px;
 }
 body.no-scroll {
-    overflow: hidden;
+    overflow: hidden; /* Отключает прокрутку */
+}
+/* Модальное окно открыто */
+.modal-open .modal {
+    display: block; /* Показываем модальное окно */
 }
 
+/* Скрываем модальное окно по умолчанию */
+.modal {
+    display: none;
+}
 
+/* Убираем прокрутку, если модальное окно открыто */
+.modal-open {
+    overflow: hidden;
+}
 
 
 
