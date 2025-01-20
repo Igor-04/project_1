@@ -98,50 +98,35 @@ const setThemeColors = (themeParams) => {
 </html>
 
 <script>
-   document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", () => {
     const modal = document.getElementById("myModal");
-    const closeModal = document.querySelector(".close");
-    const tg = window.Telegram.WebApp;
+    const closeModalButton = document.getElementById("closeModal");
 
-    // Проверяем, доступно ли API Telegram
-    if (tg) {
-        tg.ready();
-
-        // Обработчик для открытия модального окна
-        document.querySelectorAll(".tovar").forEach((tovar) => {
-            tovar.addEventListener("click", () => {
-                // Показываем модальное окно
-                modal.style.display = "block";
-
-                // Отображаем кнопку "Назад"
-                tg.BackButton.show();
-
-                // Устанавливаем поведение кнопки "Назад"
-                tg.BackButton.onClick(() => {
-                    navigateToViruses();
-                });
-            });
-        });
-
-        // Закрытие окна кнопкой "×"
-        closeModal.addEventListener("click", () => {
-            closeModalWindow();
-        });
-
-        // Закрытие модального окна
-        function closeModalWindow() {
-            modal.style.display = "none";
-
-            
-        }
-
-        // Функция для перехода на страницу "Вирусы"
-        function navigateToViruses() {
-            modal.style.display = "none"; // Закрываем модальное окно
-           
-            window.location.href = "viruses.html"; // Переход на страницу "Вирусы"
-        }
+    // Функция открытия модального окна
+    function openModal() {
+        modal.style.display = "block";
+        document.body.classList.add("no-scroll"); // Отключаем прокрутку
     }
+
+    // Функция закрытия модального окна
+    function closeModal() {
+        modal.style.display = "none";
+        document.body.classList.remove("no-scroll"); // Включаем прокрутку
+    }
+
+    // Пример обработчиков
+    document.querySelectorAll(".tovar").forEach((tovar) => {
+        tovar.addEventListener("click", openModal);
+    });
+
+    closeModalButton.addEventListener("click", closeModal);
+
+    // Закрытие при клике вне модального контента
+    window.addEventListener("click", (event) => {
+        if (event.target === modal) {
+            closeModal();
+        }
+    });
 });
 
 </script>

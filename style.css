@@ -179,6 +179,10 @@ h1 {
     max-width: 500px;
     border-radius: 5px;
 }
+.no-scroll {
+    overflow: hidden;
+}
+
 
 
 
@@ -207,8 +211,8 @@ h1 {
 .long_description {
     font-size: 18px;
 }
-telegram-button {
-    background-color: #0088cc; /* Цвет Telegram */
+/* telegram-button {
+    background-color: #0088cc;  Цвет Telegram 
     color: #ffffff;
     border: none;
     padding: 15px;
@@ -221,5 +225,5 @@ telegram-button {
 }
 
 .telegram-button:hover {
-    background-color: #006c99; /* Тёмный цвет при наведении */
-}
+    background-color: #006c99; /* Тёмный цвет при наведении 
+} */
