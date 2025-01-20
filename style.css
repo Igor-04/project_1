@@ -179,7 +179,7 @@ h1 {
     max-width: 500px;
     border-radius: 5px;
 }
-.no-scroll {
+body.no-scroll {
     overflow: hidden;
 }
 
